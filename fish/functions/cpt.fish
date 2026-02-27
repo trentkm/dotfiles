@@ -3,12 +3,18 @@ function cpt --description "Copy path to clipboard. No args = cwd, or pass a fil
         pwd | pbcopy
         echo "Copied: "(pwd)
     else
-        set -l p (path resolve $argv[1] 2>/dev/null)
-        if test $status -ne 0 -o -z "$p"
-            echo "cpt: unable to resolve '$argv[1]'" >&2
+        set -l target $argv[1]
+        # Build absolute path without resolving symlinks
+        if not string match -q '/*' -- $target
+            set target $PWD/$target
+        end
+        # Clean up trailing slashes
+        set target (string replace -r '/+$' '' -- $target)
+        if not test -e $target
+            echo "cpt: '$argv[1]' does not exist" >&2
             return 1
         end
-        echo -n $p | pbcopy
-        echo "Copied: $p"
+        echo -n $target | pbcopy
+        echo "Copied: $target"
     end
 end
