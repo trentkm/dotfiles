@@ -49,7 +49,8 @@
 # resize-overlay-duration = 4s 200ms
 
 
-theme = Material Darker
+theme = Breadog
+background-opacity = 0.95
 confirm-close-surface = false
 
 # Split configuration
