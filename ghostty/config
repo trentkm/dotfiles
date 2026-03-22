@@ -50,7 +50,7 @@
 
 
 theme = Breadog
-background-opacity = 0.90
+background-opacity = 0.93
 confirm-close-surface = false
 
 # Split configuration
